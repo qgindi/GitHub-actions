@@ -6,6 +6,6 @@ jobs:
     runs-on: windows-latest
     steps:
       - name: where dotnet
-        run: where dotnet
+        run: where.exe dotnet.exe
       - name: where msbuild
-        run: where msbuild
+        run: where.exe msbuild.exe
