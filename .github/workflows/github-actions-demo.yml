@@ -7,5 +7,5 @@ jobs:
     steps:
       - name: Install Master Packager Dev
         run: |
-          winget install --id=MasterPackager.MasterPackagerDev -e --accept-source-agreements --accept-package-agreements
+          winget install --id=MasterPackager.MasterPackagerDev -e --accept-source-agreements --accept-package-agreements --skip-dependencies
           
