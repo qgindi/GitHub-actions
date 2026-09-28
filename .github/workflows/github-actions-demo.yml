@@ -1,11 +1,11 @@
 name: GitHub Actions Demo
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [workflow_dispatch]
+on: [workflow_dispatch,push]
 jobs:
   Explore-GitHub-Actions:
     runs-on: windows-latest
     steps:
-      - name: where dotnet
-        run: where.exe dotnet.exe
-      - name: where msbuild
-        run: where.exe msbuild.exe
+      - name: Install Master Packager Dev
+        run: |
+          winget install --id=MasterPackager.MasterPackagerDev -e --accept-source-agreements --accept-package-agreements
+          
