@@ -46,6 +46,8 @@ jobs:
           body: |
             [What's new in ${{ steps.version.outputs.version }}](https://github.com/qgindi/LibreAutomate/blob/master/Other/DocFX/_doc/changes/${{ steps.version.outputs.version }}.md)
 
+            ---
+
             Download and run `LibreAutomate.msi`.
 
             Or run [msiexec](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec). Examples:
