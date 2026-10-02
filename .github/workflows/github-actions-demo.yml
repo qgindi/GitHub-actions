@@ -1,11 +1,17 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [workflow_dispatch,push]
+name: Create Release with Assets
+on:
+  push:
+    tags:
+      - "v*.*"
 jobs:
-  Explore-GitHub-Actions:
+  release:
     runs-on: windows-latest
     steps:
-      - name: Install Master Packager Dev
-        run: |
-          winget install --id=MasterPackager.MasterPackagerDev -e --accept-source-agreements --accept-package-agreements --skip-dependencies
-          
+      - uses: actions/checkout@v6
+      - name: Build
+        run: echo ${{ github.sha }} > Release.txt
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        if: github.ref_type == 'tag'
+        with:
+          files: Release.txt
