@@ -19,7 +19,7 @@ jobs:
         run: |
           echo "::error::This workflow must run from a Git tag."
           exit 1
-          
+
       - uses: actions/checkout@v6
 
       - name: Setup .NET
@@ -33,8 +33,27 @@ jobs:
       - name: Build
         run: dotnet build -c Release --no-restore
 
+      - name: Get release version vX.X
+        id: version
+        run: |
+          $version = '${{ github.ref_name }}' -replace '\.\d+$', ''
+          "version=$version" >> $env:GITHUB_OUTPUT
+
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
-        #if: github.ref_type == 'tag'
         with:
+          name: LibreAutomate ${{ github.ref_name }}
+          body: |
+            [What's new in ${{ steps.version.outputs.version }}](https://github.com/qgindi/LibreAutomate/blob/master/Other/DocFX/_doc/changes/${{ steps.version.outputs.version }}.md)
+
+            Download and run `LibreAutomate.msi`.
+
+            Or run [msiexec](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/msiexec). Examples:
+            - Run the installer in reduced UI mode: `msiexec /i "msi file path" /qr`
+            - Change the app folder: `msiexec /i "msi file path" INSTALLDIR="app folder path"`
+
+            LibreAutomate uses the .NET 10 Desktop Runtime. Will prompt to install it if missing.
+
+            Runs on Windows 10 (x64) and 11 (x64, Arm64). Also 7 and 8.1; see [installing .NET](https://learn.microsoft.com/en-us/dotnet/core/install/windows).
+
           files: bin\Release\net10.0\GitHub-actions.dll
