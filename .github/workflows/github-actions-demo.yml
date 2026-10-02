@@ -1,8 +1,6 @@
 name: Create Release with Assets
 on:
-  push:
-    tags:
-      - "v*.*"
+  push
 jobs:
   release:
     runs-on: windows-latest
