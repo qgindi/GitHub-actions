@@ -1,13 +1,26 @@
 name: Create Release with Assets
 on:
   push
+
 jobs:
-  release:
+  build:
+
     runs-on: windows-latest
+
     steps:
       - uses: actions/checkout@v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
       - name: Build
-        run: echo ${{ github.sha }} > Release.txt
+        run: dotnet build -c Release --no-restore
+        
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         if: github.ref_type == 'tag'
