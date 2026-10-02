@@ -14,6 +14,12 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Verify tag
+        if: github.ref_type != 'tag'
+        run: |
+          echo "::error::This workflow must run from a Git tag."
+          exit 1
+          
       - uses: actions/checkout@v6
 
       - name: Setup .NET
