@@ -1,6 +1,8 @@
 name: Create Release with Assets
 on:
-  push
+  push:
+    tags:
+      - "v*.*"
 
 permissions:
   contents: write
